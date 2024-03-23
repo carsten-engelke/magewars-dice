@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Mage Wars Fair Dice Rule Sets</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        .btn-primary {
+            background-color: crimson;
+            border-color: darkred;
+            margin: 10px;
+            width: 100px;
+            height: 100px;
+        }
+        .btn-primary:hover {
+            background-color: darkred;
+            border-color: black;
+        }
+        .btn-primary:focus {
+            background-color: crimson;
+            outline: darkred;
+        }
+    </style>
+  </head>
+  <body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <h1>Mage Wars Dice - reduce randomness</h1>
+    <div class="topnav">
+      <a href="https://magewars.ddns.net/codex/">Codex</a>
+      <a href="https://magewars.ddns.net/solo/">Solo Play</a>
+    </div>
+    <div class="form-group">
+      <label for="ruleselect">Select ruleset</label>
+      <select class="form-control" name="ruleset" id="ruleselect">
+        <option value="random">Random ruleset (normal Mage Wars dice)</option>
+        <option value="mild">Mild ruleset (low damage, almost no random)</option>
+        <option selected value="normal">Normal ruleset (normal damage, reduced random)</option>
+        <option value="hard">Hard ruleset (high damage, slightly random)</option>
+        <option value="strict">Strict ruleset (fair damage, not random)</option>
+        <option value="hard-strict">Hard Strict ruleset (high damage, not random)</option>
+      </select>
+    </div>
+    <script src="ruleset.js"></script>
+    <script>      
+      var resultlist = [];
+      var rollno = 0;
+      function roll(n) {
+        rollno += 1;
+        var ruleset = $("#ruleselect").val();
+        var result = rollRule(ruleset, n);
+        var date = new Date();
+        showResult("Result (No: " + rollno + ")", result);
+        $("#results").append('<div class="card" id="result' + rollno + '"></div>');
+        $("#result" + rollno).append('<div class="container"><p>Result (No ' + rollno + '): ' + result + ' <font color=grey>[' + date.toLocaleString() + ']</font></p></div>');
+        $("#result" + rollno).click(function() {showResult("Old Result", $(this).text())});
+      }
+      function showResult(title, text) {
+        $("#resultModal .modal-title").text(title);
+        $("#resultModal .modal-body").text(text);
+        $("#resultModal").modal("show");
+      }
+    </script>    
+    <!-- Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p align="center">
+    <button type="button" class="btn btn-primary" onclick="roll(1)">1</button>
+    <button type="button" class="btn btn-primary" onclick="roll(2)">2</button>
+    <button type="button" class="btn btn-primary" onclick="roll(3)">3</button>
+    <br>
+    <button type="button" class="btn btn-primary" onclick="roll(4)">4</button>
+    <button type="button" class="btn btn-primary" onclick="roll(5)">5</button>
+    <button type="button" class="btn btn-primary" onclick="roll(6)">6</button>
+    <br>
+    <button type="button" class="btn btn-primary" onclick="roll(7)">7</button>
+    <button type="button" class="btn btn-primary" onclick="roll(8)">8</button>
+    <button type="button" class="btn btn-primary" onclick="roll(9)">9</button>
+    <br>
+    <button type="button" class="btn btn-primary" onclick="roll(10)">10</button>
+    <button type="button" class="btn btn-primary" onclick="roll(11)">11</button>
+    <button type="button" class="btn btn-primary" onclick="roll(12)">12</button>
+    <br>
+    <button type="button" class="btn btn-primary" onclick="roll(13)">13</button>
+    <button type="button" class="btn btn-primary" onclick="roll(14)">14</button>
+    <button type="button" class="btn btn-primary" onclick="roll(15)">15</button>
+    <br>
+    <button type="button" class="btn btn-primary" onclick="roll(16)">16</button>
+    <button type="button" class="btn btn-primary" onclick="roll(17)">17</button>
+    <button type="button" class="btn btn-primary" onclick="roll(18)">18</button>
+    <br>
+    <button type="button" class="btn btn-primary" onclick="roll(19)">19</button>
+    <button type="button" class="btn btn-primary" onclick="roll(20)">20</button>
+    <br>
+    <button type="button" class="btn btn-primary" style="width: 360px" onclick="moreDice()">more dice</button>
+    </p>
+    <script>
+      function moreDice(){
+        var input = parseInt(prompt("Please enter number of dice:"));
+          roll(input);
+      }
+    </script>
+    <div id="results"></div>
+  </body>
+</html>
